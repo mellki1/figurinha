@@ -17,12 +17,12 @@
         return $resultado;
     }
     function ganharFigurinhas($conexao, $idUser, $aleatorio){
-        $insert = "INSERT INTO usuariosfigurinhas(usuarios_id, figurinha_id) VALUES ($idUser, $aleatorio)";
-
+        $insert = "INSERT INTO usuariosfigurinhas(usuarios_id, figurinha_id, disponivel) VALUES ($idUser, $aleatorio, 1)";
+        
         if(mysqli_query($conexao, $insert)){
             
         }else{
-            echo "<script>alert('Erro ao gerar figurinhas.');</script>";
+            echo "<script>alert('Erro ao gerar figurinhas.');window.location.href='index.php';</script>";
         }
     }
     function buscarFigurinhas($select, $idUser, $conexao){
@@ -64,5 +64,25 @@
             return 0;
         }
         return -1;
+    }
+
+    function inserirTrocas($insert, $conexao){
+        if(mysqli_query($conexao, $insert)){
+            return true;
+        }else{
+            echo "<script>alert('Erro ao inserir figurinhas pra troca.');</script>";
+            header('Location : index.php');
+            return false;
+        }
+    }
+
+    function alterarDisponibilidade($update, $conexao){
+        if(mysqli_query($conexao, $update)){
+            return true;
+        }else{
+            echo "<script>alert('Erro ao tirar disponibilidade de Figurinhas.');</script>";
+            header('Location : index.php');
+            return false;
+        }
     }
 ?>
